@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index</title>
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+<script src="../d3.js"></script>
+<script src="../svg-pan-zoom.js"></script>
+<script>
+  const wrapper = document.getElementById('app')
+  const width = 700
+  const height = 500
+
+  const svg = d3.select(wrapper)
+    .append('svg')
+    .attr({
+      width,
+      height,
+    })
+
+  const container = svg.append('g')
+
+  container.append('path')
+    .attr({
+        d: 'M100,100 L150,150 L200,100 L250,150 L300,100 ',
+      })
+      .style({
+        'stroke': 'skyblue',
+        'stroke-width': 5,
+        'fill': "white"
+      });
+
+  // svgPanZoom(svg[0][0], {
+  //   zoomEnabled: true,
+  //   controlIconsEnabled: false,
+  //   center: 1,
+  //   fit: false
+  // })
+
+</script>
+
+</html>

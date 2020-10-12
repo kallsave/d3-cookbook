@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>d3.svg.arc</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script src="../d3.js"></script>
+<script src="../svg-pan-zoom.js"></script>
+<script>
+  const wrapper = document.getElementById('app')
+  const width = 700
+  const height = 500
+
+  const svg = d3.select(wrapper)
+    .append('svg')
+    .attr({
+      width,
+      height,
+    })
+
+  const container = svg.append('g')
+
+  const color = d3.scale.category20()
+
+  const length = 8
+  const per = 2 * Math.PI / length
+  const radius = 360 / length
+
+  // 弧度生成函数
+  const arc = d3.svg.arc()
+
+  const data = d3.range(length).map((i) => {
+    return {
+      innerRadius: radius,
+      outerRadius: radius + 15 * (i + 1),
+      startAngle: per * i,
+      endAngle: per * (i + 1)
+    }
+  })
+
+  // selectAll,enter,append通常是从零生成dom节点
+  // selectAll的参数并不重要,通常是path
+  const arcs = container.selectAll('path')
+    .data(data)
+    .enter()
+    .append('g')
+
+  arcs.append('path')
+    .attr({
+      d(d) {
+        return arc(d)
+      },
+      fill(d, i) {
+        return color(i)
+      }
+    })
+
+  arcs.append('text')
+    .attr({
+      transform: (d) => {
+        return `translate(${arc.centroid(d)})`
+      },
+      dy: '.35em',
+      'text-anchor': 'middle',
+    })
+    .text((d, i) => {
+      return i
+    })
+
+  svgPanZoom(svg[0][0], {
+    zoomEnabled: true,
+    controlIconsEnabled: false,
+    center: 1,
+    fit: false
+  })
+
+</script>
+</html>

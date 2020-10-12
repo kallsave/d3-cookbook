@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>center</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .app {
+      width: 960px;
+      height: 500px;
+      margin: 0 auto;
+      background: peru;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="app"></div>
+</body>
+<script src="../d3.js"></script>
+<script src="../svg-pan-zoom.js"></script>
+<script>
+  const wrapper = document.getElementById('app');
+  const width = 960
+  const height = 500
+
+  const svg = d3.select(wrapper)
+    .append('svg')
+    .attr({
+      width,
+      height
+    })
+
+  const container = svg.append('g')
+
+  container.append('circle')
+    .attr({
+      cx: 0,
+      cy: 0,
+      r: 50,
+      fill: '#fdd'
+    })
+
+  container.append('circle')
+    .attr({
+      cx: 100,
+      cy: 0,
+      r: 50,
+      fill: 'red'
+    })
+
+  svgPanZoom(svg[0][0], {
+    zoomEnabled: true,
+    controlIconsEnabled: false,
+    center: 1,
+    fit: false
+  })
+
+  // d3的拖拽放大缩小不好用
+  // const zoom = d3.behavior.zoom()
+  //   .center([width / 2, height / 2])
+  //   .scaleExtent([1, 10])
+  //   .on('zoom', zoomed)
+
+  // function zoomed() {
+  //   const [translateX, translateY] = d3.event.translate
+
+  //   container.attr({
+  //     transform: "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")"
+  //   })
+  // }
+
+  // container.call(zoom)
+
+</script>
+</html>

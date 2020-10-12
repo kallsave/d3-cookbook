@@ -3,3 +3,4 @@
 /scripts/
 /dist/
 /*.js
+/src/lib/
